@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div>
+    <a href="~/Home/Abaout">Abaout</a>
+
+    @Html.ActionLink("Abaout","Abaout")
+    <br/>
+    <a href="~/Programa/display/3">Display</a>
+
+    @Html.ActionLink("Display", "display", "Product", new { id = 3 }, null)
+    <br/>
+</div>
+

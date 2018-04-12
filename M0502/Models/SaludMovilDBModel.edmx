@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SaludMovilModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sm_Estado">
+          <Key>
+            <PropertyRef Name="idEstado" />
+          </Key>
+          <Property Name="idEstado" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="tabla" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sm_Poblacion">
+          <Key>
+            <PropertyRef Name="idPoblacion" />
+          </Key>
+          <Property Name="idPoblacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="idEstado" Type="int" Nullable="false" />
+          <Property Name="createdBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="createdDate" Type="datetime" Nullable="false" />
+          <Property Name="updatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="updatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sm_Programa">
+          <Key>
+            <PropertyRef Name="idPrograma" />
+          </Key>
+          <Property Name="idPrograma" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="idEstado" Type="int" Nullable="false" />
+          <Property Name="createdDate" Type="datetime" Nullable="false" />
+          <Property Name="createdBy" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="updatedDate" Type="datetime" />
+          <Property Name="updatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="fechaInicio" Type="datetime" Nullable="false" />
+          <Property Name="fechaFin" Type="datetime" Nullable="false" />
+          <Property Name="poblacionObjetivo" Type="int" Nullable="false" />
+          <Property Name="orden" Type="int" />
+          <Property Name="idRiesgoPrograma" Type="int" />
+        </EntityType>
+        <Association Name="FK_salud_Estado">
+          <End Role="sm_Estado" Type="Self.sm_Estado" Multiplicity="1" />
+          <End Role="sm_Programa" Type="Self.sm_Programa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sm_Estado">
+              <PropertyRef Name="idEstado" />
+            </Principal>
+            <Dependent Role="sm_Programa">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_salud_Poblacion">
+          <End Role="sm_Poblacion" Type="Self.sm_Poblacion" Multiplicity="1" />
+          <End Role="sm_Programa" Type="Self.sm_Programa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sm_Poblacion">
+              <PropertyRef Name="idPoblacion" />
+            </Principal>
+            <Dependent Role="sm_Programa">
+              <PropertyRef Name="poblacionObjetivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SaludMovilModelStoreContainer">
+          <EntitySet Name="sm_Estado" EntityType="Self.sm_Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sm_Poblacion" EntityType="Self.sm_Poblacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sm_Programa" EntityType="Self.sm_Programa" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_salud_Estado" Association="Self.FK_salud_Estado">
+            <End Role="sm_Estado" EntitySet="sm_Estado" />
+            <End Role="sm_Programa" EntitySet="sm_Programa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_salud_Poblacion" Association="Self.FK_salud_Poblacion">
+            <End Role="sm_Poblacion" EntitySet="sm_Poblacion" />
+            <End Role="sm_Programa" EntitySet="sm_Programa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SaludMovilModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sm_Estado">
+          <Key>
+            <PropertyRef Name="idEstado" />
+          </Key>
+          <Property Name="idEstado" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tabla" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="sm_Programa" Relationship="Self.FK_salud_Estado" FromRole="sm_Estado" ToRole="sm_Programa" />
+        </EntityType>
+        <EntityType Name="sm_Poblacion">
+          <Key>
+            <PropertyRef Name="idPoblacion" />
+          </Key>
+          <Property Name="idPoblacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idEstado" Type="Int32" Nullable="false" />
+          <Property Name="createdBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="updatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="sm_Programa" Relationship="Self.FK_salud_Poblacion" FromRole="sm_Poblacion" ToRole="sm_Programa" />
+        </EntityType>
+        <EntityType Name="sm_Programa">
+          <Key>
+            <PropertyRef Name="idPrograma" />
+          </Key>
+          <Property Name="idPrograma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idEstado" Type="Int32" Nullable="false" />
+          <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="updatedDate" Type="DateTime" Precision="3" />
+          <Property Name="updatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="fechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaFin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="poblacionObjetivo" Type="Int32" Nullable="false" />
+          <Property Name="orden" Type="Int32" />
+          <Property Name="idRiesgoPrograma" Type="Int32" />
+          <NavigationProperty Name="sm_Estado" Relationship="Self.FK_salud_Estado" FromRole="sm_Programa" ToRole="sm_Estado" />
+          <NavigationProperty Name="sm_Poblacion" Relationship="Self.FK_salud_Poblacion" FromRole="sm_Programa" ToRole="sm_Poblacion" />
+        </EntityType>
+        <Association Name="FK_salud_Estado">
+          <End Role="sm_Estado" Type="Self.sm_Estado" Multiplicity="1" />
+          <End Role="sm_Programa" Type="Self.sm_Programa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sm_Estado">
+              <PropertyRef Name="idEstado" />
+            </Principal>
+            <Dependent Role="sm_Programa">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_salud_Poblacion">
+          <End Role="sm_Poblacion" Type="Self.sm_Poblacion" Multiplicity="1" />
+          <End Role="sm_Programa" Type="Self.sm_Programa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sm_Poblacion">
+              <PropertyRef Name="idPoblacion" />
+            </Principal>
+            <Dependent Role="sm_Programa">
+              <PropertyRef Name="poblacionObjetivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SaludMovilEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sm_Estado" EntityType="Self.sm_Estado" />
+          <EntitySet Name="sm_Poblacion" EntityType="Self.sm_Poblacion" />
+          <EntitySet Name="sm_Programa" EntityType="Self.sm_Programa" />
+          <AssociationSet Name="FK_salud_Estado" Association="Self.FK_salud_Estado">
+            <End Role="sm_Estado" EntitySet="sm_Estado" />
+            <End Role="sm_Programa" EntitySet="sm_Programa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_salud_Poblacion" Association="Self.FK_salud_Poblacion">
+            <End Role="sm_Poblacion" EntitySet="sm_Poblacion" />
+            <End Role="sm_Programa" EntitySet="sm_Programa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SaludMovilModelStoreContainer" CdmEntityContainer="SaludMovilEntities">
+          <EntitySetMapping Name="sm_Estado">
+            <EntityTypeMapping TypeName="SaludMovilModel.sm_Estado">
+              <MappingFragment StoreEntitySet="sm_Estado">
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="tabla" ColumnName="tabla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sm_Poblacion">
+            <EntityTypeMapping TypeName="SaludMovilModel.sm_Poblacion">
+              <MappingFragment StoreEntitySet="sm_Poblacion">
+                <ScalarProperty Name="idPoblacion" ColumnName="idPoblacion" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sm_Programa">
+            <EntityTypeMapping TypeName="SaludMovilModel.sm_Programa">
+              <MappingFragment StoreEntitySet="sm_Programa">
+                <ScalarProperty Name="idPrograma" ColumnName="idPrograma" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="fechaInicio" ColumnName="fechaInicio" />
+                <ScalarProperty Name="fechaFin" ColumnName="fechaFin" />
+                <ScalarProperty Name="poblacionObjetivo" ColumnName="poblacionObjetivo" />
+                <ScalarProperty Name="orden" ColumnName="orden" />
+                <ScalarProperty Name="idRiesgoPrograma" ColumnName="idRiesgoPrograma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
