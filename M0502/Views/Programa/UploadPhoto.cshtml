@@ -1,0 +1,15 @@
+﻿@model M0502.Models.sm_Estado
+
+@{
+    ViewBag.Title = "UploadPhoto";
+}
+
+<h2>UploadPhoto</h2>
+<body>
+    @using (Html.BeginForm("UploadPhoto", "Programa", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="file"  />
+        <input type="submit" value="Ok" />
+    }
+</body>
+
