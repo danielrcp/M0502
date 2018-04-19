@@ -11,7 +11,8 @@ namespace M0502.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class sm_Programa
     {
         public int idPrograma { get; set; }

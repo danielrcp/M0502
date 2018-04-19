@@ -6,12 +6,13 @@ using System.Web;
 
 namespace M0502.Models
 {
+    [MetadataType(typeof(ProgramaMetaData))]
     public partial class sm_Programa
     {
-        [MetadataType(typeof(ProgramaMetaData))]
         class ProgramaMetaData
         {
             [Display(Name ="Nombre del programa:")]
+            [DataType(DataType.MultilineText)]
             public object descripcion { get; set; }
             [Display(Name = "Estado del programa:")]
             public object idEstado { get; set; }

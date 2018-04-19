@@ -8,8 +8,12 @@
 <body>
     @using (Html.BeginForm("Create", "Programa", FormMethod.Post))
     {
-
+        @Html.LabelFor(m => m.descripcion)
+        <br />
+        @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control" ,@placeholder = "Nombre del programa" })
+        <br/>
+        <input type="text" name="ProgramName" />
+        <input type="checkbox" name="Discontinued" /> @:Discontinued
     }
 </body>
-
 
