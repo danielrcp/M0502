@@ -12,7 +12,9 @@ namespace M0502.Controllers
         // GET: Programa
         public ActionResult Index()
         {
-            return View();
+            var Context = new SaludMovilEntities();
+            var Programas = Context.sm_Programa.ToArray();
+            return View(Programas);
         }
 
         public ActionResult Display(int id)

@@ -1,0 +1,23 @@
+﻿@model M0502.Models.Comment
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>Comentario</h1>
+    <div> 
+        @Model.Subject
+    </div>
+    <div>
+        @Html.Raw(@Model.HtmlSubject)
+    </div>
+</body>
+</html>

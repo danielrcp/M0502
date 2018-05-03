@@ -12,6 +12,7 @@ namespace M0502.Models
         class ProgramaMetaData
         {
             [Display(Name ="Nombre del programa:")]
+            [Required(ErrorMessage = "El nombre del programa es requerido")]
             [DataType(DataType.MultilineText)]
             public object descripcion { get; set; }
             [Display(Name = "Estado del programa:")]

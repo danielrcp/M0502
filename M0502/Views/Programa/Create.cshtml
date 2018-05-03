@@ -5,15 +5,26 @@
 }
 
 <h2>Create</h2>
+<style>
+    .validation-summary-errors {
+        color:red;
+    }
+    .validation-summary-valid , field-validation-valid {
+        display:none;
+    }
+</style>
 <body>
     @using (Html.BeginForm("Create", "Programa", FormMethod.Post))
     {
+        @Html.ValidationSummary("Por favor ingrese datos válidos para los siguientes campos")
         @Html.LabelFor(m => m.descripcion)
         <br />
         @Html.TextBoxFor(x => x.descripcion, new { @class = "form-control" ,@placeholder = "Nombre del programa" })
+        @Html.ValidationMessageFor(m => m.descripcion,"*")
         <br/>
         <input type="text" name="ProgramName" />
         <input type="checkbox" name="Discontinued" /> @:Discontinued
+        <input type="submit"  value="Crear" />
     }
 </body>
 

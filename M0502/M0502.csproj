@@ -162,11 +162,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProgramaController.cs" />
+    <Compile Include="CustomHelpers\Helpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\ProgramaMetaData.cs" />
     <Compile Include="Models\SaludMovilDBModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -209,6 +212,8 @@
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Programa\Create.cshtml" />
     <Content Include="Views\Programa\UploadPhoto.cshtml" />
+    <Content Include="Views\Comment\Index.cshtml" />
+    <Content Include="Views\Programa\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
